@@ -79,6 +79,7 @@
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 # swap layout
 ctrl + alt + cmd - l : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+ctrl + alt + cmd - o : yabai -m space --layout float && yabai -m space --layout bsp
 
 # focus window
 ctrl - h : yabai -m window --focus west

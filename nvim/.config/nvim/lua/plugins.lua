@@ -84,11 +84,16 @@ return require("packer").startup {
       config = [[ require('plugins/luasnip') ]]
     }
 
-    use {
-      --  colorscheme for (neo)vim
+    --  colorscheme for (neo)vim
+    --[[    use {
       "shaunsingh/nord.nvim"
     }
-
+    --]]
+    use {
+      -- colorscheme tundra
+      "sam4llis/nvim-tundra",
+      config = [[ require('plugins/nvim-tundra')]]
+    }
     use {
       -- Nvim Treesitter configurations and abstraction layer
       "nvim-treesitter/nvim-treesitter",
