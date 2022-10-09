@@ -2,7 +2,7 @@ require("telescope").load_extension("project")
 
 require("telescope").setup {
   defaults = {
-    file_ignore_patterns = {"node_modules", ".git", "dist"},
+    file_ignore_patterns = { "node_modules", ".git", "dist" },
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -23,13 +23,14 @@ require("telescope").setup {
         -- map actions.which_key to <C-h> (default: <C-/>)
         -- actions.which_key shows the mappings for your picker,
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-        ["<C-h>"] = "which_key"
+        ["<C-h>"] = "which_key",
+        ['<c-d>'] = require('telescope.actions').delete_buffer
       }
     }
   },
   pickers = {
     find_files = {
-      find_command = {"rg", "--files", "--hidden"}
+      find_command = { "rg", "--files", "--hidden" }
     },
     file_browser = {
       hidden = true
@@ -51,7 +52,7 @@ require("telescope").setup {
         -- the default case_mode is "smart_case"
       },
       base_dirs = {
-        {path = "~/Sources", max_depth = 2}
+        { path = "~/Sources", max_depth = 2 }
       },
       hidden_files = true
     },

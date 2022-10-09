@@ -90,11 +90,6 @@ return require("packer").startup {
     }
     --]]
     use {
-      -- colorscheme tundra
-      "sam4llis/nvim-tundra",
-      config = [[ require('plugins/nvim-tundra')]]
-    }
-    use {
       -- Nvim Treesitter configurations and abstraction layer
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
@@ -112,15 +107,17 @@ return require("packer").startup {
     }
 
     use {
+      --Righe verticali di indentazione
+      "terrortylor/nvim-comment",
+      require("nvim_comment").setup()
+    }
+    use {
       "nvim-lualine/lualine.nvim",
       requires = { "kyazdani42/nvim-web-devicons" },
       config = [[ require('plugins/lualine') ]]
     }
-
-    use { 'akinsho/bufferline.nvim',
-      tag = "v2.*",
-      requires = 'kyazdani42/nvim-web-devicons',
-      config = [[ require('plugins/bufferline')]]
+    use {
+      'folke/tokyonight.nvim'
     }
 
     use {

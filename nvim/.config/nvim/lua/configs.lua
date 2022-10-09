@@ -11,6 +11,7 @@ cmd('autocmd InsertLeave *.* update')
 cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()]]
 set.guifont = 'DroidSansMono Nerd Font 11'
 set.termguicolors = true -- Enable GUI colors for the terminal to get truecolor
+cmd [[colorscheme tokyonight-night]]
 set.list = false -- show whitespace
 set.listchars = {
   nbsp = '⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
@@ -33,7 +34,7 @@ set.wrap = false -- don't automatically wrap on load
 set.showmatch = true -- show the matching part of the pair for [] {} and ()
 set.cursorline = true -- highlight current line
 set.number = true -- show line numbers
-set.relativenumber = true -- show relative line number
+set.relativenumber = true -- show relative line numberconfig
 set.incsearch = true -- incremental search
 set.hlsearch = false -- highlighted search results
 set.ignorecase = true -- ignore case sensetive while searching

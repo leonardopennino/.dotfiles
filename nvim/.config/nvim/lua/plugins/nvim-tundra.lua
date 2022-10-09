@@ -33,10 +33,6 @@ require('nvim-tundra').setup({
     gitsigns = true,
     telescope = true,
   },
-  overwrite = {
-    colors = {},
-    highlights = {},
-  },
 })
 
 vim.opt.background = 'dark'
