@@ -22,6 +22,10 @@ local function make_server_ready(attach)
     opts.on_attach = attach
 
     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+    if (server.name == "omnisharp") then
+      vim.cmd [[ do User LspAttachBuffers ]]
+      return
+    end
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
   end)
@@ -42,10 +46,11 @@ local servers = {
   "bashls",
   "dockerls",
   "tailwindcss",
+  "omnisharp"
 }
 
 -- setup the LS
-require "plugins.lspconfig"
+require("plugins.omnisharp")
 make_server_ready(On_attach) -- LSP mappings
 
 -- install the LS

@@ -2,7 +2,7 @@ require("telescope").load_extension("project")
 
 require("telescope").setup {
   defaults = {
-    file_ignore_patterns = { "node_modules", ".git", "dist" },
+    file_ignore_patterns = { "node_modules", ".git", "dist", ".meta" },
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -29,9 +29,6 @@ require("telescope").setup {
     }
   },
   pickers = {
-    find_files = {
-      find_command = { "rg", "--files", "--hidden" }
-    },
     file_browser = {
       hidden = true
     }

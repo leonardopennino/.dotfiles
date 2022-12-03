@@ -31,6 +31,11 @@ return require("packer").startup {
     }
 
     use {
+      'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" },
+      config = [[ require ('plugins/metals')]]
+    }
+
+    use {
       -- A completion plugin for neovim coded in Lua.
       "hrsh7th/nvim-cmp",
       requires = {
@@ -107,9 +112,7 @@ return require("packer").startup {
     }
 
     use {
-      --Righe verticali di indentazione
       "terrortylor/nvim-comment",
-      require("nvim_comment").setup()
     }
     use {
       "nvim-lualine/lualine.nvim",
@@ -119,7 +122,18 @@ return require("packer").startup {
     use {
       'folke/tokyonight.nvim'
     }
-
+    use {
+      "catppuccin/nvim",
+      as = "catppuccin",
+      config = function()
+        vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
+        require("catppuccin").setup()
+        vim.api.nvim_command "colorscheme catppuccin"
+      end
+    }
+    use {
+      'OmniSharp/omnisharp-vim'
+    }
     use {
       "TimUntersberger/neogit",
       requires = { "nvim-lua/plenary.nvim" },

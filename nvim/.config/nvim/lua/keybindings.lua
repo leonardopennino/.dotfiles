@@ -45,7 +45,7 @@ map("n", "<leader>w", ":w!<CR>:bdelete<CR>")
 map("n", "<leader>s", ":w<CR>")
 map("n", "<leader>qq", ":wqall!<CR>")
 -- telescope
-map("n", "<Leader>ff", "<cmd>Telescope find_files<cr>")
+map("n", "<Leader>ff", "<cmd>Telescope fd<cr>")
 map("n", "<Leader>fb", "<cmd>Telescope buffers<cr>")
 map("n", "<Leader>fd", "<cmd>Telescope lsp_document_symbols<cr>")
 

@@ -11,21 +11,20 @@ cmd('autocmd InsertLeave *.* update')
 cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()]]
 set.guifont = 'DroidSansMono Nerd Font 11'
 set.termguicolors = true -- Enable GUI colors for the terminal to get truecolor
-cmd [[colorscheme tokyonight-night]]
 set.list = false -- show whitespace
 set.listchars = {
-  nbsp = '⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
-  extends = '»', -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
-  precedes = '«', -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
-  tab = '▷─', -- WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7) + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
-  trail = '•', -- BULLET (U+2022, UTF-8: E2 80 A2)
-  space = ' '
+	nbsp = '⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+	extends = '»', -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
+	precedes = '«', -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+	tab = '▷─', -- WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7) + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
+	trail = '•', -- BULLET (U+2022, UTF-8: E2 80 A2)
+	space = ' '
 }
 set.fillchars = {
-  diff = '∙', -- BULLET OPERATOR (U+2219, UTF-8: E2 88 99)
-  eob = ' ', -- NO-BREAK SPACE (U+00A0, UTF-8: C2 A0) to suppress ~ at EndOfBuffer
-  fold = '·', -- MIDDLE DOT (U+00B7, UTF-8: C2 B7)
-  vert = ' ' -- remove ugly vertical lines on window division
+	diff = '∙', -- BULLET OPERATOR (U+2219, UTF-8: E2 88 99)
+	eob = ' ', -- NO-BREAK SPACE (U+00A0, UTF-8: C2 A0) to suppress ~ at EndOfBuffer
+	fold = '·', -- MIDDLE DOT (U+00B7, UTF-8: C2 B7)
+	vert = ' ' -- remove ugly vertical lines on window division
 }
 set.undofile = true
 set.undodir = vim.fn.stdpath("config") .. "/undo"
@@ -96,17 +95,17 @@ cmd([[au BufEnter * set fo-=c fo-=r fo-=o]])
 set.completeopt = 'menuone,noselect,noinsert'
 
 cmd(
-  [[ autocmd BufNewFile,BufRead *.mdx set filetype=markdown ]]
+	[[ autocmd BufNewFile,BufRead *.mdx set filetype=markdown ]]
 )
 
 -- 2 spaces for selected filetypes
 cmd(
-  [[ autocmd FileType xml,html,xhtml,css,scssjavascript,lua,dart setlocal shiftwidth=2 tabstop=2 ]])
+	[[ autocmd FileType xml,html,xhtml,css,scssjavascript,lua,dart setlocal shiftwidth=2 tabstop=2 ]])
 -- json
 cmd(
-  [[ au BufEnter *.json set ai expandtab shiftwidth=2 tabstop=2 sta fo=croql ]])
+	[[ au BufEnter *.json set ai expandtab shiftwidth=2 tabstop=2 sta fo=croql ]])
 
 --- latex
 vim.g.tex_flavor = "latex";
 cmd(
-  [[ autocmd FileType latex,tex,plaintex set wrap linebreak ]])
+	[[ autocmd FileType latex,tex,plaintex set wrap linebreak ]])
