@@ -41,7 +41,6 @@ local servers = {
   "texlab", -- for latex
   "ltex",
   "pylsp", -- for python
-  "sumneko_lua", -- for lua
   "yamlls",
   "bashls",
   "dockerls",

@@ -17,11 +17,10 @@ return require("packer").startup {
     }
 
     use {
-      "williamboman/nvim-lsp-installer",
-      config = [[ require('plugins/lsp_installer_nvim') ]],
-      requires = {
-        "neovim/nvim-lspconfig"
-      }
+    "williamboman/mason.nvim",
+    requires = {"williamboman/mason-lspconfig.nvim" } ,
+    run = ":MasonUpdate", -- :MasonUpdate updates registry contents
+    config = [[ require('plugins/mason') ]]
     }
 
     use {
@@ -119,9 +118,7 @@ return require("packer").startup {
       requires = { "kyazdani42/nvim-web-devicons" },
       config = [[ require('plugins/lualine') ]]
     }
-    use {
-      'folke/tokyonight.nvim'
-    }
+    --[[
     use {
       "catppuccin/nvim",
       as = "catppuccin",
@@ -129,6 +126,14 @@ return require("packer").startup {
         vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
         require("catppuccin").setup()
         vim.api.nvim_command "colorscheme catppuccin"
+      end
+    }
+    --]]
+    use {
+      'Rigellute/rigel',
+      as = "rigel",
+      config = function()
+        vim.api.nvim_command "colorscheme rigel"
       end
     }
     use {
