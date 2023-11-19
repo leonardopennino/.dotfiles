@@ -1,43 +1,53 @@
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap =
-  fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-return require("packer").startup {
-  function(use)
-    -- Packer can manage itself
-    use "wbthomason/packer.nvim"
+vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 
-    use {
+require("lazy").setup({
+
+    {
       -- A collection of common configurations for Neovim's built-in language server client
       "neovim/nvim-lspconfig",
-      config = [[ require('plugins/lspconfig') ]]
-    }
+      config = function ()
+		require('plugins/lspconfig')
+	  end,
+    },
 
-    use {
+    {
     "williamboman/mason.nvim",
-    requires = {"williamboman/mason-lspconfig.nvim" } ,
+    dependencies = {"williamboman/mason-lspconfig.nvim" } ,
     run = ":MasonUpdate", -- :MasonUpdate updates registry contents
-    config = [[ require('plugins/mason') ]]
+    config = function()
+	  require('plugins/mason')
+	end,
     }
 
-    use {
+    ,{
       -- vscode-like pictograms for neovim lsp completion items Topics
       "onsails/lspkind-nvim",
-      config = [[ require('plugins/lspkind') ]]
+      config = function()
+	  require('plugins/lspkind')
+	end,
     }
+	,{ "catppuccin/nvim", as = "catppuccin", config= function()
+      vim.cmd "colorscheme catppuccin"
+	end
+	  }
 
-    use {
-      'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" },
-      config = [[ require ('plugins/metals')]]
-    }
-
-    use {
+    ,{
       -- A completion plugin for neovim coded in Lua.
       "hrsh7th/nvim-cmp",
-      requires = {
+      dependencies = {
         "hrsh7th/cmp-nvim-lsp", -- nvim-cmp source for neovim builtin LSP client
         "hrsh7th/cmp-nvim-lua", -- nvim-cmp source for nvim lua
         "hrsh7th/cmp-buffer", -- nvim-cmp source for buffer words.
@@ -45,33 +55,37 @@ return require("packer").startup {
         "hrsh7th/cmp-calc", -- nvim-cmp source for math calculation.
         "saadparwaiz1/cmp_luasnip" -- luasnip completion source for nvim-cmp
       },
-      config = [[ require('plugins/cmp') ]]
+      config = function()
+	  require('plugins/cmp')
+	end,
     }
 
-    use {
+    ,{
       "nvim-telescope/telescope-project.nvim"
     }
 
-    use {
+    ,{
       "psliwka/vim-smoothie"
     }
-    use {
+    ,{
       "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make"
+      build = "make"
     }
 
-    use {
+    ,{
       "nvim-telescope/telescope.nvim",
-      requires = {
+      dependencies = {
         "nvim-lua/plenary.nvim",
         "BurntSushi/ripgrep"
       },
-      config = [[ require('plugins/telescope') ]]
+      config = function()
+	  require('plugins/telescope')
+	end,
     }
 
-    use {
+    ,{
       "nvim-telescope/telescope-bibtex.nvim",
-      requires = {
+      dependencies = {
         { "nvim-telescope/telescope.nvim" }
       },
       config = function()
@@ -79,111 +93,86 @@ return require("packer").startup {
       end
     }
 
-    use {
+    ,{
       -- Snippet Engine for Neovim written in Lua.
       "L3MON4D3/LuaSnip",
-      requires = {
+      dependencies = {
         "rafamadriz/friendly-snippets" -- Snippets collection for a set of different programming languages for faster development.
       },
-      config = [[ require('plugins/luasnip') ]]
+      config = function()
+	  require('plugins/luasnip')
+	end,
     }
 
-    --  colorscheme for (neo)vim
-    --[[    use {
-      "shaunsingh/nord.nvim"
-    }
-    --]]
-    use {
+    ,{
       -- Nvim Treesitter configurations and abstraction layer
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
-      requires = {
+      dependencies = {
         "windwp/nvim-ts-autotag",
         "p00f/nvim-ts-rainbow"
       },
-      config = [[ require('plugins/treesitter') ]]
+      config = function()
+	  require('plugins/treesitter')
+	end,
     }
 
-    use {
-      --Righe verticali di indentazione
+    ,{
       "lukas-reineke/indent-blankline.nvim",
-      config = [[ require('plugins/blankline') ]]
+      config = function()
+	  require('plugins/blankline')
+	end,
     }
 
-    use {
+    ,{
       "terrortylor/nvim-comment",
     }
-    use {
+    ,{
       "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons" },
-      config = [[ require('plugins/lualine') ]]
-    }
-    --[[
-    use {
-      "catppuccin/nvim",
-      as = "catppuccin",
+      dependencies = { "kyazdani42/nvim-web-devicons" },
       config = function()
-        vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
-        require("catppuccin").setup()
-        vim.api.nvim_command "colorscheme catppuccin"
-      end
+	  require('plugins/lualine')
+	end,
     }
-    --]]
-    use {
-      'Rigellute/rigel',
-      as = "rigel",
-      config = function()
-        vim.api.nvim_command "colorscheme rigel"
-      end
-    }
-    use {
+
+    ,{
       'OmniSharp/omnisharp-vim'
     }
-    use {
+
+    ,{
       "TimUntersberger/neogit",
-      requires = { "nvim-lua/plenary.nvim" },
-      config = [[ require('plugins/neogit') ]]
+      dependencies = { "nvim-lua/plenary.nvim" },
+      config = function()
+	  require('plugins/neogit')
+	end,
     }
 
-    use {
+    ,{
       "kyazdani42/nvim-tree.lua",
-      requires = "kyazdani42/nvim-web-devicons",
-      config = [[ require('plugins/nvim-tree') ]]
+      dependencies = "kyazdani42/nvim-web-devicons",
+      config = function()
+	  require('plugins/nvim-tree')
+	end,
     }
 
-    use {
-      "folke/zen-mode.nvim",
-      config = [[ require('plugins/zen-mode') ]]
-    }
-
-    use {
-      "ThePrimeagen/git-worktree.nvim",
-      config = [[ require('plugins/git-worktree') ]]
-    }
-
-    use {
-      "mhartington/formatter.nvim",
-      config = [[ require('plugins/formatter') ]]
-    }
-
-    use {
+    ,{
       "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-      config = [[ require('plugins/trouble')]]
+      dependencies = "kyazdani42/nvim-web-devicons",
+      config = function()
+	  require('plugins/trouble')
+	end,
     }
 
-    use {
+    ,{
       "folke/which-key.nvim",
-      config = [[require('plugins/which-key')]]
+      config = function()
+	  require('plugins/which-key')
+	end,
     }
 
-    use {
+    ,{
       "norcalli/nvim-colorizer.lua",
-      config = [[require('plugins/colorizer')]]
-    }
-
-    if packer_bootstrap then
-      require("packer").sync()
-    end
-  end
-}
+      config = function()
+	  require('plugins/colorizer')
+	end,
+    }})

@@ -37,9 +37,6 @@ map("n", "<leader>j", ":m .+1<CR>==")
 --map("n", "<C-Left>", ":vertical resize -2<CR>")
 --map("n", "<C-Right>", ":vertical resize +2<CR>")
 
--- Navigate and reorder buffers using bufferline
-map("n", "<S-l>", ":bn<CR>")
-map("n", "<S-h>", ":bp<CR>")
 -- Buffer Actions
 map("n", "<leader>w", ":w!<CR>:bdelete<CR>")
 map("n", "<leader>s", ":w<CR>")
@@ -48,6 +45,7 @@ map("n", "<leader>qq", ":wqall!<CR>")
 map("n", "<Leader>ff", "<cmd>Telescope fd<cr>")
 map("n", "<Leader>fb", "<cmd>Telescope buffers<cr>")
 map("n", "<Leader>fd", "<cmd>Telescope lsp_document_symbols<cr>")
+map("n", "<Leader>fg", "<cmd>Telescope live_grep<cr>")
 
 -- quicklist
 map("n", "<leader>qn", "<cmd>:cnext<cr>")
