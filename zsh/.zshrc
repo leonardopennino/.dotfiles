@@ -3,24 +3,36 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-source ~/.bash_profile
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
-# Ability to bookmark directories
-# To add a bookmark create a symbolic link in the directory bookmarks using the command :
-# ln -s /target @bookmarkName
-if [ -d "$HOME/.bookmarks" ]; then
-    export CDPATH=".:$HOME/.bookmarks:/"
-    alias goto="cd -P"
-fi
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+
+[ -z "$TMUX"  ] && { tmux attach 2>/dev/null || exec tmux new-session -s "Home" -c "~" && exit;}
+
+export PATH=$PATH:/Users/leonardo/Library/Python/3.9/bin/
+export FZF_DEFAULT_COMMAND='fd --type d --type f --strip-cwd-prefix'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -a --base-directory ~ --type d"
+export FZF_TMUX_OPTS="-p"
+# Bookmarks support
+unalias cdg 2> /dev/null
+cdg() {
+   local dest_dir=~/$(fd --type d --base-directory ~ | fzf-tmux -p )
+   if [[ $dest_dir != '' ]]; then
+      cd "$dest_dir"
+   fi
+}
+bookmark(){
+  echo $(pwd) >> ~/.bookmarks
+}
+export -f cdg > /dev/null
+cast(){
+  castnow --device bda345fd-9f6a-1e60-59c0-6810d45ca87e $@
+}
+source ~/.iterm
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -82,7 +94,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git macos)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,9 +125,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export JAVA_HOME=/Applications/Unity/2022.1.20f1/PlaybackEngines/AndroidPlayer/OpenJDK/
+# The following lines were added by compinstall
+zstyle :compinstall filename '/Users/leonardo/.zshrc'
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/leonardo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/leonardo/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/leonardo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/leonardo/google-cloud-sdk/completion.zsh.inc'; fi
+autoload -Uz compinit
+compinit
+eval "$(op completion zsh)"; compdef _op op
+# End of lines added by compinstall
